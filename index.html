@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fake API and Images</title>
+
+    <style>
+        body{
+            font-family: Arial;
+            background:#f2f2f2;
+            text-align:center;
+        }
+
+        h2{
+            margin-top:20px;
+        }
+
+        table{
+            border-collapse: collapse;
+            margin:20px auto;
+            width:90%;
+            background:white;
+        }
+
+        th, td{
+            border:1px solid #ccc;
+            padding:10px;
+            text-align:center;
+        }
+
+        th{
+            background:#333;
+            color:white;
+        }
+
+        img{
+            width:120px;
+            height:120px;
+            object-fit:cover;
+        }
+
+        .myinfo{
+            background:#e6f7ff;
+            font-weight:bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>Fake API Users</h2>
+
+<table id="userTable">
+    <thead>
+        <tr>
+            <th>Picture</th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Company</th>
+            <th>Address</th>
+            <th>Country</th>
+            <th>Zip</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<script>
+
+fetch("https://fake-json-api.mock.beeceptor.com/users")
+.then(response => response.json())
+.then(data => {
+
+    let table = document.querySelector("#userTable tbody");
+
+    data.forEach(user => {
+
+        let row = `
+        <tr>
+            <td><img src="${user.photo}" width="120" height="120"></td>
+            <td>${user.id}</td>
+            <td>${user.name}</td>
+            <td>${user.email}</td>
+            <td>${user.company}</td>
+            <td>${user.address}</td>
+            <td>${user.country}</td>
+            <td>${user.zip}</td>
+        </tr>
+        `;
+
+        table.innerHTML += row;
+    });
+
+    // APPEND PERSONAL INFORMATION AT THE END
+
+    let myRow = `
+    <tr class="myinfo">
+        <td><img src="https://via.placeholder.com/120"></td>
+        <td>11</td>
+        <td>Jean May</td>
+        <td>jeanmay.cuezon@nmsc.edu.ph</td>
+        <td>Student</td>
+        <td>Mahayag, Dimataling</td>
+        <td>Philippines</td>
+        <td>7032</td>
+    </tr>
+    `;
+
+    table.innerHTML += myRow;
+
+});
+
+</script>
+
+</body>
+</html>
